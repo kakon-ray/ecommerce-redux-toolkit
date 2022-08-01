@@ -3,6 +3,8 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import { Link } from "react-router-dom";
+import "./Navigation.css";
 
 const Navigation = () => {
   return (
@@ -12,8 +14,16 @@ const Navigation = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#link">Link</Nav.Link>
+            <Link to="/" className="nav-link">
+              Home
+            </Link>
+            <Link to="/cart" className="nav-link">
+              Cart
+            </Link>
+            <Link to="/about" className="nav-link">
+              About
+            </Link>
+
             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">
@@ -27,7 +37,12 @@ const Navigation = () => {
             </NavDropdown>
           </Nav>
           <Nav className="ms-auto">
-            <i class="fas fa-shopping-cart"></i>
+            <div className="position-relative sopping-cart">
+              <i class="fas fa-shopping-cart"></i>
+              <div className="cart-item">
+                <span className="text">3</span>
+              </div>
+            </div>
           </Nav>
         </Navbar.Collapse>
       </Container>

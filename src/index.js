@@ -4,11 +4,35 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { BrowserRouter } from "react-router-dom";
+
+import { configureStore } from "@reduxjs/toolkit";
+import { Provider } from "react-redux";
+import ProductsReducer, { productsFetch } from "./features/ProductSlice";
+import { productsApi } from "./features/productsApi";
+
+const store = configureStore({
+  reducer: {
+    products: ProductsReducer,
+    [productsApi.reducerPath]: productsApi.reducer,
+  },
+
+  middleware: (getDefaultMiddleware) => {
+    return getDefaultMiddleware().concat(productsApi.middleware);
+  },
+});
+
+store.dispatch(productsFetch());
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <Provider store={store}>
+        <App />
+      </Provider>
+      ,
+    </BrowserRouter>
   </React.StrictMode>
 );
 
