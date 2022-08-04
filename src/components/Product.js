@@ -3,15 +3,16 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../features/CartSlice";
-
+import { useNavigate } from "react-router-dom";
 const Product = (props) => {
   const { name, img, price } = props.item;
   const product = props.item;
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleAddProduct = (product) => {
     dispatch(addToCart(product));
+    navigate("./cart");
   };
 
   return (

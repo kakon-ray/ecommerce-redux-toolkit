@@ -6,6 +6,8 @@ import { Routes, Route, Link } from "react-router-dom";
 import NotFound from "./components/notFound/NotFound";
 import Home from "./page/home/Home";
 import Cart from "./page/cart/Cart";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
@@ -16,6 +18,7 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <ToastContainer />
     </React.Fragment>
   );
 }
