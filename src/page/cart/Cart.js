@@ -1,14 +1,31 @@
 import { Button, Table } from "react-bootstrap";
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { removeToCart } from "../../features/CartSlice";
+import {
+  clearToCart,
+  decreassCartQuantity,
+  removeToCart,
+} from "../../features/CartSlice";
 
 const Cart = () => {
   const cart = useSelector((item) => item.cart.cartsItems);
   const dispatch = useDispatch();
   const handleDelete = (item) => {
     dispatch(removeToCart(item));
+  };
+
+  const handleCurrentCartQuantity = (event, item) => {
+    const currentCartQuantity = event.target.value;
+    if (currentCartQuantity > 0) {
+      dispatch(decreassCartQuantity({ currentCartQuantity, item }));
+    } else {
+      dispatch(removeToCart(item));
+    }
+  };
+
+  const handleClearCart = () => {
+    dispatch(clearToCart());
   };
 
   console.log(cart);
@@ -56,6 +73,9 @@ const Cart = () => {
                         type="number"
                         style={{ width: "50px" }}
                         defaultValue={item.cartQuantity}
+                        onChange={(event) =>
+                          handleCurrentCartQuantity(event, item)
+                        }
                       />
                     </td>
                     <td>
@@ -68,8 +88,12 @@ const Cart = () => {
           </Table>
           <div className="d-flex justify-content-between align-items-center">
             <div>
-              <button type="button" class="btn btn-outline-danger">
-                Danger
+              <button
+                type="button"
+                class="btn btn-outline-danger"
+                onClick={() => handleClearCart()}
+              >
+                Clear Cart
               </button>
             </div>
 
