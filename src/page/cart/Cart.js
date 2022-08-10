@@ -19,7 +19,9 @@ const Cart = () => {
     const currentCartQuantity = event.target.value;
     if (currentCartQuantity > 0) {
       dispatch(decreassCartQuantity({ currentCartQuantity, item }));
-    } else {
+    }
+
+    if (currentCartQuantity < 0) {
       dispatch(removeToCart(item));
     }
   };
@@ -28,7 +30,10 @@ const Cart = () => {
     dispatch(clearToCart());
   };
 
-  console.log(cart);
+  const subtotal = cart.reduce((totalItem, currentItem) => {
+    return totalItem + parseFloat(currentItem.price) * currentItem.cartQuantity;
+  }, 0);
+
   return (
     <div className="container-fluid">
       {cart.length === 0 ? (
@@ -100,7 +105,7 @@ const Cart = () => {
             <div style={{ width: "250px" }}>
               <div className="d-flex justify-content-between">
                 <h3>Subtotal </h3>
-                <h3>400$</h3>
+                <h3>{subtotal}$</h3>
               </div>
               <p>Voluptatum, voluptatem?</p>
               <button type="button" class="btn btn-primary w-100">

@@ -5,8 +5,14 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { Link } from "react-router-dom";
 import "./Navigation.css";
-
+import { useSelector } from "react-redux";
 const Navigation = () => {
+  const cart = useSelector((item) => item.cart.cartsItems);
+
+  const subtotal = cart.reduce((totalItem, currentItem) => {
+    return totalItem + parseInt(currentItem.cartQuantity);
+  }, 0);
+
   return (
     <Navbar bg="light" expand="lg">
       <Container>
@@ -40,7 +46,7 @@ const Navigation = () => {
             <div className="position-relative sopping-cart">
               <i class="fas fa-shopping-cart"></i>
               <div className="cart-item">
-                <span className="text">3</span>
+                <span className="text">{subtotal}</span>
               </div>
             </div>
           </Nav>

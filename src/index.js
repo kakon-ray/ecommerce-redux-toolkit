@@ -11,20 +11,21 @@ import { Provider } from "react-redux";
 import ProductsReducer, { productsFetch } from "./features/ProductSlice";
 import { productsApi } from "./features/productsApi";
 import CartReducer from "./features/CartSlice";
+import store from "./store";
 
-const store = configureStore({
-  reducer: {
-    products: ProductsReducer,
-    cart: CartReducer,
-    [productsApi.reducerPath]: productsApi.reducer,
-  },
+// const store = configureStore({
+//   reducer: {
+//     products: ProductsReducer,
+//     cart: CartReducer,
+//     [productsApi.reducerPath]: productsApi.reducer,
+//   },
 
-  middleware: (getDefaultMiddleware) => {
-    return getDefaultMiddleware().concat(productsApi.middleware);
-  },
-});
+//   middleware: (getDefaultMiddleware) => {
+//     return getDefaultMiddleware().concat(productsApi.middleware);
+//   },
+// });
 
-store.dispatch(productsFetch());
+// store.dispatch(productsFetch());
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
